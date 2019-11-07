@@ -5,7 +5,7 @@
 #include "point.hpp"
 
 template<typename T>
-class triangle {
+class square {
 private:
-    Point<T> pts[3];    
+    Point<T> pts[4];
 };

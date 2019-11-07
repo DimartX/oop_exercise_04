@@ -2,33 +2,36 @@
 
 #include <iostream>
 
-template<class number>
+template<class T>
 struct Point {
-    number x, y;
-    Point(number x, number y) : x(x), y(y) {};
+    T x, y;
+
+    // Если T не числовой тип, останавливать конструктор
+    Point(T x, T y) : x(x), y(y) {};
     Point() = default;
 
-    Point<number> operator+ (Point<number> const& a, Point<number> const& b) const {
-        return Point<number>{a.x + b.x, a.y + b.y};
+    Point<T> operator+ (Point<T> const& a, Point<T> const& b) const {
+        return Point<T>{a.x + b.x, a.y + b.y};
     }
-    Point<number> operator- (Point<number> const& a, Point<number> const& b) const {
-        return Point<number>{a.x - b.x, a.y - b.y};
+    Point<T> operator- (Point<T> const& a, Point<T> const& b) const {
+        return Point<T>{a.x - b.x, a.y - b.y};
     }
-    Point<number> operator* (Point<number> const& a, double const& b) const {
-        return Point<number>{a.x * b, a.y * b};
+    Point<T> operator* (Point<T> const& a, double const& b) const {
+        return Point<T>{a.x * b, a.y * b};
     }
-    Point<number> operator/ (Point<number> const& a, double const& b) const {
-        return Point<number>{a.x / b, a.y / b};
+    Point<T> operator/ (Point<T> const& a, double const& b) const {
+        return Point<T>{a.x / b, a.y / b};
     }
 };
 
-template<class number>
-std::istream& operator>> (std::istream& in, Point<number>& pt) {
+template<class T>
+std::istream& operator>> (std::istream& in, Point<T>& pt) {
     is >> pt.x >> pt.y;
     return is;
 }
-template<class number>
-std::ostream& operator<< (std::ostream& out, Point<number> const& pt) {
+
+template<class T>
+std::ostream& operator<< (std::ostream& out, Point<T> const& pt) {
     out << pt.x << ' ' << pt.y;
     return out;
 }
