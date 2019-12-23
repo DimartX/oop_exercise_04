@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage{multicol,multirow}
+\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{minted}
+
+\usepackage{color} %% это для отображения цвета в коде
+\usepackage{listings} %% собственно, это и есть пакет listings
+
+\lstset{ %
+language=C,                 % выбор языка для подсветки (здесь это С)
+basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+numbers=left,               % где поставить нумерацию строк (слева\справа)
+%numberstyle=\tiny,           % размер шрифта для номеров строк
+stepnumber=1,                   % размер шага между двумя номерами строк
+numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+backgroundcolor=\color{white}, % цвет фона подсветки - используем \usepackage{color}
+showspaces=false,            % показывать или нет пробелы специальными отступами
+showstringspaces=false,      % показывать или нет пробелы в строках
+showtabs=false,             % показывать или нет табуляцию в строках
+frame=single,              % рисовать рамку вокруг кода
+tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+breaklines=true,           % автоматически переносить строки (да\нет)
+breakatwhitespace=false, % переносить строки только если есть пробел
+escapeinside={\%*}{*)}   % если нужно добавить комментарии в коде
+}
+
+% Оригиналный шаблон: http://k806.ru/dalabs/da-report-template-2012.tex
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textbf{МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСОЙ ФЕДЕРАЦИИ
+\medskip
+МОСКОВСКИЙ АВЦИАЦИОННЫЙ ИНСТИТУТ
+(НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЬЕЛЬСКИЙ УНИВЕРСТИТЕТ)
+\vfill\vfill
+{\Huge ЛАБОРАТОРНАЯ РАБОТА №4} 
+по курсу объектно-ориентированное программирование
+I семестр, 2019/20 уч. год}
+\end{center}
+\vfill
+
+Студент \uline{\it {Артемьев Дмитрий Иванович, группа М8О-206Б-18}\hfill}
+
+Преподаватель \uline{\it {Журавлёв Андрей Андреевич}\hfill}
+
+\vfill
+\end{titlepage}
+
+\subsection*{Условие}
+
+Задание: \
+Вариант 1: Треугольник, Квадрат, Прямоугольник.\
+Разработать шаблоны классов согласно варианту задания. Параметром шаблона должен являться скалярный тип данных, задающий тип данных для оси координат. Классы должны иметь публичные поля. 
+\begin{enumerate}
+\item Вычисление геометрического центра фигуры;
+\item Вывод в стандартный поток вывода std::cout координат вершин фигуры;
+\item Вычисление площади фигуры;
+\end{enumerate}
+
+Создать программу, которая позволяет:
+\begin{enumerate}
+\item Вводить из стандартного ввода std::cin фигуры, согласно варианту задания (как в виде класса, так и в виде std::tuple).
+\item Вызывать для неё шаблонные функции(1-3).
+\end{enumerate}
+
+\subsection*{Описание программы}
+
+Исходный код лежит в 11 файлах:
+\begin{enumerate}
+\item src/main.cpp: основная программа, взаимодействие с пользователем посредством комманд из меню
+\item include/figure.hpp:    описание шаблона класса фигур
+\item include/point.hpp:     описание шаблона класса точки 
+\item include/triangle.hpp:  описание шаблона класса треугольника, наследующегося от figures
+\item include/rectangle.hpp: описание шаблона класса прямоугольника, наследующегося от figures
+\item include/square.hpp:    описание шаблона класса квадрата, наследующегося от rectangle
+\item include/template.hpp:  функции для чтения/вывода tuple
+\item include/functions.hpp: функции для нахождения площади, центра фигуры и вывода её координат на экран
+\end{enumerate}
+
+\subsection*{Дневник отладки}
+
+Долгие попытки прикрутить фичи C++17.
+
+\subsection*{Недочёты}
+
+Нечитабельный код.
+
+\subsection*{Выводы}
+
+Научился использовать шаблоны в C++, изучил коллекцию tuple и некоторые фишки C++17.
+
+\vfill
+
+\subsection*{Исходный код}
+
+{\Huge main.cpp}
+\inputminted
+    {C++}{src/main.cpp}
+    \pagebreak
+    
+{\Huge figure.hpp}
+\inputminted
+    {C++}{include/figure.hpp}
+    \pagebreak
+
+{\Huge point.hpp}
+\inputminted
+    {C++}{include/point.hpp}
+    \pagebreak
+
+{\Huge triangle.hpp}
+\inputminted
+    {C++}{include/triangle.hpp}
+    \pagebreak
+
+{\Huge rectangle.hpp}
+\inputminted
+    {C++}{include/rectangle.hpp}
+    \pagebreak
+
+{\Huge square.hpp}
+\inputminted
+    {C++}{include/square.hpp}
+    \pagebreak
+
+{\Huge template.hpp}
+\inputminted
+    {C++}{include/template.hpp}
+    \pagebreak
+
+{\Huge functions.hpp}
+\inputminted
+    {C++}{include/functions.hpp}
+    \pagebreak
+    
+\end{document}

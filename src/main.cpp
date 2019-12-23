@@ -7,48 +7,89 @@
 #include "square.hpp"
 #include "rectangle.hpp"
 
-#include "templates.hpp"
+#include "template.hpp"
+#include "functions.hpp"
 
-template <class T>
-void process() {
-    T obj;
-    read(std::cin, obj);
-    print(std::cout, obj);
-    std::cout << area(obj) << std::endl;
-    std::cout << center(obj) << std::endl;
+
+template<class T>
+void process(std::ostream& out, T& obj) {
+    print(out, obj);
+    out << area(obj) << std::endl;
+    out << center(obj) << std::endl;
+}
+
+void processTuple(std::istream& in, std::ostream& out) {
+    std::string objType;
+    in >> objType;
+
+    using pii = Point<int>;
+    using triangle  = std::tuple<pii, pii, pii>;
+    using square    = std::tuple<pii, pii, pii, pii>;
+    using rectangle = std::tuple<pii, pii, pii, pii>;
+
+    if (objType == "triangle") {
+        triangle obj;
+        read(in, obj);
+        process<triangle>(out, obj);
+    }
+    else if (objType == "square") {
+        square obj;
+        read(in, obj);
+        process<square>(out, obj);
+    }
+    else if (objType == "rectangle") {
+        rectangle obj;
+        read(in, obj);
+        process<rectangle>(out, obj);
+    }
+    else {
+        out << "Wrong object type!" << std::endl;
+        return;
+    }
+}
+
+void processFigure(std::istream& in, std::ostream& out) {
+    std::string objType;
+    in >> objType;
+
+    using triangle  = Triangle<int>;
+    //using square    = Square<int>;
+    //using rectangle = Rectangle<int>;
+    if (objType == "triangle") {
+        triangle obj(in);
+        process<triangle>(out, obj);
+    }
+    // else if (objType == "square") {
+    //     Square<int> obj(in);
+    //     process<Square<int>>(obj);
+    // }
+    // else if (objType == "rectangle") {
+    //     Rectangle<int> obj(in);
+    //     process<Rectangle<int>>(obj);
+    //}
+    else {
+        out << "Wrong object type!" << std::endl;
+        return;
+    }
 }
 
 int main() {
-    std::string objType;
-    std::cin >> objType;
+    
+    while (std::cin) {
+        std::cout << "Enter form(tuple/figure), ";
+        std::cout << "figure type(triangle, square, rectangle), " << std::endl; 
 
-    if (objType == "tuple") {
-        int angles;
-        std::cin >> angles;
-        if (angles == 3) {
-            process<std::tuple<point<int>, point<int>, point<int>>>();
+        std::string objForm;
+        std::cin >> objForm;
+
+        if (objForm == "tuple") {
+            processTuple(std::cin, std::cout);
         }
-        else if (angles == 4) {
-            process<std::tuple<point<int>, point<int>, point<int>, point<int>>>();
-        }
-        else {
-            std::cout << "Wrong points number" << std::endl;
-        }
-    }
-    else if (objType = "type") {
-        int angles;
-        std::cin >> angles;
-        if (angles == 3) {
-            process<triangle<int>>();
-        }
-        else if (angles == 4) {
-            process<tetragon<int>>();
+        else if (objForm == "figure") {
+            processFigure(std::cin, std::cout);
         }
         else {
-            std::cout << "Wrong points number" << std::endl;
+            std::cout << "Wrong object form!" << std::endl;
         }
-    }
-    else {
-        std::cout << "Wrong object type!" << std::endl;
     }
 }
